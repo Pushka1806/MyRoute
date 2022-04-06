@@ -16,8 +16,10 @@ router.post('/plusOne', controller.plusOne);
 
 router.post('/minusOne', controller.minusOne);
 
-router.post('/deletePassengers', controller.deletePassengers);
+router.post('/deletePassengers', controller.deletePassengers)
 
-router.patch('/getWorkAuto', controller.getWorkAuto);
+router.patch('/getWorkAuto', controller.getWorkAuto)        // изменение флага водителя (работает/неработает)
 
-module.exports = router;
+router.patch('/editGPSDriver', controller.editGPSDriver)        // изменение координат GPS водителя
+
+module.exports = router

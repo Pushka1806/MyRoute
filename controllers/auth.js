@@ -141,20 +141,37 @@ module.exports.deletePassengers = async function (req,res){
 // все что выше больно трогать
 
 module.exports.getWorkAuto = async function (req, res){      // функция для изменения флага в записи водителя
-    const driver = await User.findOne({"_id.login": req.body.login})        // проверяю наличие записи
-    if (driver === null){
+    if (!(await User.findOneAndUpdate({"_id.login": req.body.login}, { $set: {"flag": req.body.flag}})) ){      // находит и изменяет данные
         res.status(404).json({
             "message": "Запись не найдена",
         })
     } else{
         try{
-            await User.findOneAndUpdate({"_id.login": req.body.login}, { $set: {"flag": req.body.flag}})        // нахожу, изменяю
-            res.status(201).json({
+            res.status(201).json({      // если все хорошо
                 "message": "Флаг изменен",
             })
         } catch (e){       // если сохранить всё же не удалось, вернём сообщение с ошибкой) мдя...
             res.status(501).json({
                 "message": "Ошибка сервера",
+            })
+            console.log(e)
+        }
+    }
+}
+
+module.exports.editGPSDriver = async function(req, res){     // изменение данных GPS по логину водителя
+    if (!(await User.findOneAndUpdate({"_id.login": req.body.login}, {"gps": req.body.gps}))){      // находит и изменяет данные
+        res.status(404).json({      // если заявка не найдена, перекинет сюда. появится ошибка о ненахождении записи
+            "message": "Запись не найдена",
+        })
+    } else{   
+        try{        // обработчик ошибок
+            res.status(201).json({      // если все хорошо
+                "message": "GPS данные обновлены",
+            })
+        } catch (e) {       // если сохранить всё же не удалось, вернём сообщение с ошибкой) мдя...
+            res.status(501).json({
+                "message": "Ошибка изменения данных. Попробуйте снова",
             })
             console.log(e)
         }
