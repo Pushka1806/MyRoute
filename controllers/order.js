@@ -9,9 +9,9 @@ module.exports.getAll = async function (req, res){      // когда-то ну�
 }
 
 module.exports.create = async function (req, res){      // функция для создания новых заявок, простое занесение активных заявок в файл
-    const _idUserNewOrser = req.body._id      // создаю переменную с id пользователя
+    var _idUserNewOrser = req.body._id      // создаю переменную с id пользователя
 
-    if (_idUserNewOrser == "404") {     // проверяю наличие корректного id
+    if (_idUserNewOrser === "404") {     // проверяю наличие корректного id
         _idUserNewOrser = require('mongoose').Types.ObjectId()
     }
 
