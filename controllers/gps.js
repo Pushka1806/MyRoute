@@ -51,53 +51,45 @@ module.exports.getJpsByStops = async function(req, res) {
 }
 
 module.exports.getGpsDriver = async function(req, res) {
-    let ok_cars = new Array();
-    for( let route of  req.query.routes){
-       
-        let cars_route = await Driver.find({route_work:route}); // получили водителей работающих на этом маршруте
-        const driver_route = await Driver_route.findOne({_id:route}); // получили остановки маршрута
-        let okDriverByRoute = new Array();
-        
+    let ok_cars = new Array()
+    for(let route of  req.query.routes){
+        let cars_route = await Driver.find({route_work:route})      // получили водителей работающих на этом маршруте
+        const driver_route = await Driver_route.findOne({_id:route})        // получили остановки маршрута
+        let okDriverByRoute = new Array()
         for(let car of cars_route){
-            //res.status(200).json(check_gps(car,driver_route,req.query.start));
-             if(check_gps(car,driver_route,req.query.start)){ // проверяем, приедет ли водитель на нашу остановку или уже проехал
-                 let lat = car.gps.latitude;
-                 let lon = car.gps.longitude;
-                 let car_result = { id: car._id,
-                                   latitude:lat,
-                                   longitude:lon};
-                 
-                 okDriverByRoute.push(car_result);
-                 //res.status(200).json({r:okDriverByRoute});
-             }
+            if (check_gps(car, driver_route, req.query.start)){     // проверяем, приедет ли водитель на нашу остановку или уже проехал
+                let lat = car.gps.latitude
+                let lon = car.gps.longitude
+                let car_result = {id: car._id, latitude:lat, longitude:lon}
+                okDriverByRoute.push(car_result)
+            }
         }
-       // res.status(200).json();
-        let result = {route: route, cars: okDriverByRoute};
-        ok_cars.push(result); // отправляем машины в массив, по текущему маршруту
-     }
-     res.status(200).json(ok_cars);
+        let result = {route: route, cars: okDriverByRoute}
+        ok_cars.push(result)       // отправляем машины в массив, по текущему маршруту
+    }
+    res.status(200).json(ok_cars);
 }
+
 function check_gps(driver,dr_route,start){
-    const driver_route = dr_route;
-    let index=0;
-    let index_start = -1;
-    let index_driver = -1;
-    for( stop of driver_route.route){
-        
-        if(stop.name === driver.current_stop){
-            index_driver = index;
+    const driver_route = dr_route
+    let index = 0;
+    let index_start = -1
+    let index_driver = -1
+    for(stop of driver_route.route){
+        if (stop.name === driver.current_stop){
+            index_driver = index
         }
-        if(stop.name === start){
-            index_start = index;
-             if(index_driver>=0 && index_start>=index_driver) {//индекс остановки должен быть больше текущей остановки
-                    return 1;
-             }
-             else{
-                return 0;
-             }   
+        if (stop.name === start){
+            index_start = index
+            if(index_driver >= 0 && index_start >= index_driver) {      //индекс остановки должен быть больше текущей остановки
+                return 1
+            }
+            else{
+                return 0
+            }   
         }
-        index+=1;
-    } 
+        index += 1
+    }
     // можно реализовать приезд водителя
 }
    
