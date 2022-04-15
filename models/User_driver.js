@@ -1,7 +1,9 @@
 const mongoose = require("mongoose");
 const {Schema} = require("mongoose");
+
 const userSchema = new Schema({
-    _id:{
+    _id: mongoose.Types.ObjectId,
+    name: {
         login:{
             type: String,
             required: true,
@@ -12,14 +14,14 @@ const userSchema = new Schema({
             required: true
         }
     },
-    gps:{
+    gps: {
         latitude:{
             type: Number,
             required: true
         },
         longitude:{
-             type:Number,
-            required:true
+            type:Number,
+            required: true
         } 
     },
     flag:Number,

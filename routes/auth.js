@@ -2,11 +2,10 @@ const express = require('express');
 const controller = require('../controllers/auth');
 const router = express.Router();
 
-//localhost:5000/api/auth/login
-router.post('/login', controller.login);
+router.post('/login', controller.login)     // вход в систему по паролю
 
-//localhost:5000/api/auth/register
-router.post('/register', controller.register);
+// localhost:5000/api/auth/register
+// router.post('/register', controller.register);
 
 router.get('/driverGetInfo', controller.driverGetInfo);
 
@@ -21,5 +20,7 @@ router.post('/deletePassengers', controller.deletePassengers)
 router.patch('/getWorkAuto', controller.getWorkAuto)        // изменение флага водителя (работает/неработает)
 
 router.patch('/editGPSDriver', controller.editGPSDriver)        // изменение координат GPS водителя
+
+router.patch('/newPassword', controller.newPassword)        // изменение пароля в БД, универсальный метод
 
 module.exports = router

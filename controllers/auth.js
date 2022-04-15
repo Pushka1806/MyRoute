@@ -4,91 +4,123 @@ const User = require('../models/User_driver')
 const Driver_route = require('../models/Driver_routes');
 const keys = require("../config/keys");
 
-module.exports.login = async function (req, res){
-    const candidate = await User.findOne({"_id.login": req.body.login})
-    if(candidate){
-        //нашли - проверяем пароль
-     
-//         const passwordResult = bcrypt.compareSync(req.body.login, candidate._id.login);
-//         passwordResylt = alert(req.body.login, candidate._id.login);
-        if(req.body.password == candidate._id.password || candidate.flag == 1 ){
-            //гененируем токен, т.к. пароль правильный
-            //const token = jsonwebtoken.sign({
-            //    login: candidate.login,
-            //    userid: candidate._id
-            //}, keys.jwt, {expiresIn: 60 * 60})
-            if(candidate.flag == 0){
-                 candidate.flag = 1;
-                 candidate.save();
-                res.status(200).json({
+module.exports.login = async function (req, res){       // функция для входа водителя в аккаунт/проверка по паролю
+    try{
+        const candidate = await User.findOne({"name.login": req.query.login})     // получаю объект водителя
+        if (candidate === null){
+            res.status(404).json({      // если не нашел водителя
+                "message": "Заявка не найдена",
+            })
+        } else if (candidate.name.password == req.query.password) {       // случай, если нашел
+            res.status(201).json({      // пароли совпали
                 message: "Введите новый пароль"
-                })
-            }
-            else if(candidate.flag == 1){
-                if(candidate._id.password != req.body.password){
-                     candidate.flag = 2;
-                     candidate._id.password = req.body.password;
-                     candidate.save();
-                    res.status(200).json({
-                        message:"OK"})
-//                     message: "Пароль изменён"})
-                }
-                else{
-                    res.status(201).json({
-                        message: "Это старый пароль"
-                     })
-                }
-            }
-            else{    
-                res.status(200).json({
-                    message: "OK"
-                })
-            }
-        }
-        else{
-            //пароли не совпали
-            res.status(201).json({
-                message: "Неверный пароль"
+            })
+        } else {
+            res.status(201).json({      // пароли не совпали
+                message: "Пароль неверен"
             })
         }
-    } else{
-        //если не нашли пользователя
-        res.status(201).json({
-            message: "Пользователь не найден"
+    } catch (e) {
+        res.status(501).json({      // ошибки в серверной части
+            "message": "Ошибка сервера. Попробуйте снова",
         })
+        console.log(e)
     }
 }
 
-module.exports.register = async function (req, res){
-    //нам придут email и password
-    //нужно отслеживать уникальность email
-    const candidate = await  User.findOne({email: req.body.email});
-
-    if(candidate){
-        //если нашли уже сущ. пользователя - вернем ошибку
-        res.status(201).json({
-            message: 'Пользователь с таким email уже зарегестрирован.'
-        })
-    } else{
-        //если он новый, то создаем его
-        const salt = bcrypt.genSaltSync(10);
-        const password = req.body.password;
-        const user = new User({
-            email: req.body.email,
-            password: bcrypt.hashSync(password, salt)
-        })
-        try {
-            await user.save()
-            res.status(201).json(user)
-        } catch (e){
-            //Обработать ошибку
-            console.log(e);
+module.exports.newPassword = async function (req, res){     // функция для смены пароля водителя
+    try{
+        let candidate = await User.findOne({"name.login": req.query.login})     // получаю объект водителя
+        console.log(candidate)
+        if (candidate === null){
+            res.status(404).json({      // если не нашел водителя
+                "message": "Заявка не найдена",
+            })
+        } else {        // случай, если нашел
+            switch (candidate.flag){
+                case 0:
+                    if (candidate.name.password == req.query.password){        // смена первоначального пароля
+                        candidate.flag = 1      // флаг для повторного запроса, означает, что готово к смене пароля
+                        await candidate.save()        // сохранение 
+                        res.status(201).json({
+                            message: "Введите новый пароль"
+                        })
+                    } else {     // если первоначальный пароль неверен
+                        res.status(201).json({
+                            message: "Пароль неверен"
+                        })
+                    }
+                    break
+                
+                case 1:
+                    if (candidate.name.password != req.query.password){        // смена пароля, который был уже изменен
+                        candidate.flag = 2      // флаг, что пароль изменен и не соответствует первоначальному
+                        candidate.name.password = req.query.password      // смена пароля в БД
+                        await candidate.save()        // сохранение
+                        res.status(201).json({
+                            message: "Пароль изменен"
+                        })
+                    } else {     // если пароль не совпал со старым
+                        res.status(201).json({
+                            message: "Это старый пароль, попробуйте еще раз"
+                        })
+                    }
+                    break
+                
+                case 2:
+                    if (candidate.name.password == req.query.password){        // смена пароля, который был уже изменен
+                        candidate.flag = 1      // флаг для повторного запроса, означает, что готово к смене пароля
+                        await candidate.save()        // сохранение
+                        res.status(201).json({
+                            message: "Введите новый пароль"
+                        })
+                    } else {     // если пароль не совпал со старым
+                        res.status(201).json({
+                            message: "Пароль неверен"
+                        })
+                    }
+                    break
+            }
         }
-
+    } catch (e) {
+        res.status(501).json({      // ошибки в серверной части
+            "message": "Ошибка сервера. Попробуйте снова",
+        })
+        console.log(e)
     }
 }
+
+// module.exports.register = async function (req, res){
+//     //нам придут email и password
+//     //нужно отслеживать уникальность email
+//     const candidate = await  User.findOne({email: req.body.email});
+
+//     if(candidate){
+//         //если нашли уже сущ. пользователя - вернем ошибку
+//         res.status(201).json({
+//             message: 'Пользователь с таким email уже зарегестрирован.'
+//         })
+//     } else{
+//         //если он новый, то создаем его
+//         const salt = bcrypt.genSaltSync(10);
+//         const password = req.body.password;
+//         const user = new User({
+//             email: req.body.email,
+//             password: bcrypt.hashSync(password, salt)
+//         })
+//         try {
+//             await user.save()
+//             res.status(201).json(user)
+//         } catch (e){
+//             //Обработать ошибку
+//             console.log(e);
+//         }
+
+//     }
+// }
+
 module.exports.driverGetInfo = async function (req, res){
-    const candidate = await User.findOne({"_id.login": req.query.login})
+    const candidate = await User.findOne({"name.login": req.query.login})
     if(candidate){
         res.status(200).json(candidate);
     }
@@ -97,6 +129,7 @@ module.exports.driverGetInfo = async function (req, res){
     }
         
 }
+
 module.exports.driverGetRouteById = async function(req, res) {
     //тут мы нашли общий объект
     const RouteById = await Driver_route.findOne({_id: req.query._id});
@@ -104,33 +137,36 @@ module.exports.driverGetRouteById = async function(req, res) {
     const RouteArray = RouteById.route;
     res.status(200).json(RouteArray);
 }
+
 module.exports.plusOne = async function (req,res){
-    const candidate = await User.findOne({"_id.login": req.query.login});
+    const candidate = await User.findOne({"name.login": req.query.login});
     if(candidate){
-       candidate.quanPassengers = candidate.quanPassengers + 1;
-       candidate.save();
+        candidate.quanPassengers = candidate.quanPassengers + 1;
+        candidate.save();
         res.status(200).json({message:"Пассажир добавлен"})
     }
     else{
         res.status(201).json({message:"Водитель не найден"});
     } 
 }
+
 module.exports.minusOne = async function (req,res){
-    const candidate = await User.findOne({"_id.login": req.query.login});
-    if(candidate){
-       candidate.quanPassengers = candidate.quanPassengers - 1;
-       candidate.save();
+    const candidate = await User.findOne({"name.login": req.query.login});
+    if (candidate){
+        candidate.quanPassengers = candidate.quanPassengers - 1;
+        candidate.save();
         res.status(200).json({message:"Пассажир удален"})
     }
     else{
         res.status(201).json({message:"Водитель не найден"});
     } 
 }
+
 module.exports.deletePassengers = async function (req,res){
-    const candidate = await User.findOne({"_id.login": req.query.login});
-    if(candidate){
-       ccandidate.quanPassengers = 0;
-       candidate.save();
+    const candidate = await User.findOne({"name.login": req.query.login});
+    if (candidate){
+        ccandidate.quanPassengers = 0;
+        candidate.save();
         res.status(200).json({message: "Пассажиры обнулены"})
     }
     else{
@@ -141,7 +177,7 @@ module.exports.deletePassengers = async function (req,res){
 // все что выше больно трогать
 
 module.exports.getWorkAuto = async function (req, res){      // функция для изменения флага в записи водителя
-    if (!(await User.findOneAndUpdate({"_id.login": req.query.login}, { $set: {"workAuto": req.query.workAuto}})) ){      // находит и изменяет данные
+    if (!(await User.findOneAndUpdate({"name.login": req.query.login}, { $set: {"workAuto": req.query.workAuto}})) ){      // находит и изменяет данные
         res.status(404).json({
             "message": "Запись не найдена",
         })
@@ -160,7 +196,7 @@ module.exports.getWorkAuto = async function (req, res){      // функция �
 }
 
 module.exports.editGPSDriver = async function(req, res){     // изменение данных GPS по логину водителя
-    if (!(await User.findOneAndUpdate({"_id.login": req.query.login}, {"gps.latitude": req.query.latitude, "gps.longitude": req.query.longitude}))){      // находит и изменяет данные
+    if (!(await User.findOneAndUpdate({"name.login": req.query.login}, {"gps.latitude": req.query.latitude, "gps.longitude": req.query.longitude}))){      // находит и изменяет данные
         res.status(404).json({      // если заявка не найдена, перекинет сюда. появится ошибка о ненахождении записи
             "message": "Запись не найдена",
         })
