@@ -17,9 +17,9 @@ router.post('/minusOne', controller.minusOne);
 
 router.post('/deletePassengers', controller.deletePassengers)
 
-router.patch('/setWorkAuto', controller.getWorkAuto)        // изменение флага водителя (работает/неработает)
+router.patch('/setWorkAuto', controller.setWorkAuto)        // изменение флага водителя (работает/неработает)
 
-router.patch('/setGPSDriver', controller.editGPSDriver)        // изменение координат GPS водителя
+router.patch('/setGPSDriver', controller.setGPSDriver)        // изменение координат GPS водителя
 
 router.patch('/newPassword', controller.newPassword)        // изменение пароля в БД, универсальный метод
 
