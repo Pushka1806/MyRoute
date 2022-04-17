@@ -176,7 +176,7 @@ module.exports.deletePassengers = async function (req,res){
 
 // все что выше больно трогать
 
-module.exports.getWorkAuto = async function (req, res){      // функция для изменения флага в записи водителя
+module.exports.setWorkAuto = async function (req, res){      // функция для изменения флага в записи водителя
     if (!(await User.findOneAndUpdate({"name.login": req.query.login}, { $set: {"workAuto": req.query.workAuto}})) ){      // находит и изменяет данные
         res.status(404).json({
             "message": "Запись не найдена",
@@ -195,7 +195,7 @@ module.exports.getWorkAuto = async function (req, res){      // функция �
     }
 }
 
-module.exports.editGPSDriver = async function(req, res){     // изменение данных GPS по логину водителя
+module.exports.setGPSDriver = async function(req, res){     // изменение данных GPS по логину водителя
     if (!(await User.findOneAndUpdate({"name.login": req.query.login}, {"gps.latitude": req.query.latitude, "gps.longitude": req.query.longitude}))){      // находит и изменяет данные
         res.status(404).json({      // если заявка не найдена, перекинет сюда. появится ошибка о ненахождении записи
             "message": "Запись не найдена",
