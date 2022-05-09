@@ -1,15 +1,27 @@
-const express = require('express');
-const controller = require('../controllers/order');
-const router = express.Router();
+const express = require('express')
+const controller = require('../controllers/order')
+const router = express.Router()
 
-router.get('/', controller.getAll)      // получение всех активных заявок       \\ ещё не написан (04.03.2022)
 
-router.post('/getallOrderByStop', controller.getAllOrderByStop)     // получение всех заявок по маршрутам
+// создание новой заявки с занесением в файл
+// отправка _id новым пользователям
+router.post('/createOrder', controller.createOrder)     // y
 
-router.post('/createOrder', controller.create)      // создание новой заявки
+// получение всех заявок на маршруте
+router.get('/getAllOrderByRoute', controller.getAllOrderByRoute)        // y
 
-router.post('/disableOrder', controller.disableOrder)       // отмена заявки, полное удаление
+// получение количества заявок на остановке по маршруту
+router.get('/getNumberOrderByStopsOnRoute', controller.getNumberOrderByStopsOnRoute)        // y
 
-router.post('/deleteOrder', controller.deleteOrder)        // завершение заявки, удаление из файла активных, перенов в файл с отработанными заявками
+// получение начала и конца пути заявки на маршруте
+router.get('/getAllOrderByRoute', controller.getAllOrderByRoute)        // y
 
-module.exports = router;
+// отмена заявки, полное удаление
+router.post('/disableOrder', controller.disableOrder)       // y
+
+// завершение заявки
+// удаление из файла активных
+// перенос в файл с отработанными заявками
+router.post('/deleteOrder', controller.deleteOrder)     // у
+
+module.exports = router
