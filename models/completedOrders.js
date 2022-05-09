@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
+const {Schema} = require('mongoose')
 
-const completedOrdersSchema = new mongoose.Schema({
+const completedOrdersSchema = new Schema({
     _id: mongoose.Types.ObjectId,
     start: String,
     stop: String,

@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const {Schema} = require("mongoose");
+const mongoose = require('mongoose')
+const {Schema} = require('mongoose')
 
 const userSchema = new Schema({
     _id: mongoose.Types.ObjectId,
@@ -32,4 +32,4 @@ const userSchema = new Schema({
     workAuto: Boolean
 })
 
-module.exports = mongoose.model('driver_autos', userSchema);
+module.exports = mongoose.model('driver_autos', userSchema)

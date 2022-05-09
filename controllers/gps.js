@@ -1,23 +1,7 @@
-const Passenger = require('../models/User_passenger');
+const Passenger = require('../models/User_passenger')
 const Driver = require('../models/User_driver')
-const Driver_route = require('../models/Driver_routes');
+const Driver_route = require('../models/Driver_routes')
 
-//просто получить ВСЕ остановки - правил
-module.exports.AvailableZakaz = async function (req, res){
-    const getZakaz = await Passenger.find();
-   
-    let sortedRoute = new Array();
-    for(const zakaz of getZakaz){
-        for (const route  of zakaz.routeID) {
-            if(route === req.query.routeID) {
-               sortedRoute.push({start:zakaz.start, stop:zakaz.stop});
-            }
-        }
-    }
-    //console.log(sortedDrivers);
-   // const sortedRouteRoute = {stops: sortedRoute}
-    res.status(200).json(sortedRoute);
-}
 
 module.exports.getJpsByStops = async function(req, res) {
     //для этого сначала получим все маршруты, которые содержат в себе эти остановки
@@ -67,11 +51,7 @@ module.exports.getGpsDriver = async function(req, res) {        // тут ПИЗ
         let result = {route: route, cars: okDriverByRoute}
         ok_cars.push(result)       // отправляем машины в массив, по текущему маршруту
     }
-    let car_name = {
-        name: {}
-    }
-    car_name.name = ok_cars
-    res.status(200).json(car_name)
+    res.status(200).json(ok_cars)
 }
 
 function check_gps(driver,dr_route,start){

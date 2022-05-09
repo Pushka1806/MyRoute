@@ -1,6 +1,7 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
+const {Schema} = require('mongoose')
 
-const StopsSchema = new mongoose.Schema({
+const StopsSchema = new Schema({
     _id : String,
     availableStops: Array,
     }

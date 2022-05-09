@@ -1,11 +1,12 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
+const {Schema} = require('mongoose')
 
-const PassengerSchema = new mongoose.Schema({
+const PassengerSchema = new Schema({
     _id: mongoose.Types.ObjectId,
     start: String,
     stop: String,
     routeID: Array,
-    waitAuto: Boolean,
+    waitAuto: Boolean
 })
 
-module.exports = mongoose.model('passenger_users', PassengerSchema);
+module.exports = mongoose.model('passenger_users', PassengerSchema)
