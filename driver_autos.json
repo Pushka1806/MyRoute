@@ -1,0 +1,186 @@
+[{
+  "_id": {
+    "$oid": "70743736f9951287c5440a01"
+  },
+  "name": {
+    "login": "0001 AA-1",
+    "password": "0001"
+  },
+  "gps": {
+    "latitude": 52.01,
+    "longitude": 49.08
+  },
+  "flag": 0,
+  "routeID": [
+    "2 ВамРад - Бернады",
+    "2 Бернады - ВамРад"
+  ],
+  "route_work": "2 ВамРад - Бернады",
+  "current_stop": "Партизанский проспект",
+  "quanPassengers": 0,
+  "workAuto": true
+},{
+  "_id": {
+    "$oid": "70743736f9951287c5440a02"
+  },
+  "name": {
+    "login": "0002 AA-1",
+    "password": "0002"
+  },
+  "gps": {
+    "latitude": 62.01,
+    "longitude": 59.08
+  },
+  "flag": 0,
+  "routeID": [
+    "2 ВамРад - Бернады",
+    "2 Бернады - ВамРад"
+  ],
+  "route_work": "2 ВамРад - Бернады",
+  "current_stop": "Торговый центр Восток",
+  "quanPassengers": 0,
+  "workAuto": true
+},{
+  "_id": {
+    "$oid": "70743736f9951287c5440a03"
+  },
+  "name": {
+    "login": "0003 AA-1",
+    "password": "0003"
+  },
+  "gps": {
+    "latitude": 63.01,
+    "longitude": 65.08
+  },
+  "flag": 0,
+  "routeID": [
+    "2 ВамРад - Бернады",
+    "2 Бернады - ВамРад"
+  ],
+  "route_work": "2 ВамРад - Бернады",
+  "current_stop": "Богданчука",
+  "quanPassengers": 0,
+  "workAuto": true
+},{
+  "_id": {
+    "$oid": "70743736f9951287c5440a04"
+  },
+  "name": {
+    "login": "9001 AA-1",
+    "password": "9001"
+  },
+  "gps": {
+    "latitude": 63.01,
+    "longitude": 65.08
+  },
+  "routeID": [
+    "9 Ленинградская - Мясокомбинат",
+    "9 Мясокомбинат - Ленинградская"
+  ],
+  "route_work": "9 Ленинградская - Мясокомбинат",
+  "current_stop": "Партизанский проспект",
+  "quanPassengers": 0,
+  "workAuto": true
+  },{
+    "_id": {
+      "$oid": "70743736f9951287c5440a05"
+    },
+  "name": {
+    "login": "9002 AA-1",
+    "password": "9002"
+  },
+  "gps": {
+    "latitude": 13.01,
+    "longitude": 15.08
+  },
+  "routeID": [
+    "9 Ленинградская - Мясокомбинат",
+    "9 Мясокомбинат - Ленинградская"
+  ],
+  "route_work": "9 Ленинградская - Мясокомбинат",
+  "current_stop": "Торговый центр Восток",
+  "quanPassengers": 0,
+  "workAuto": true
+  },{
+    "_id": {
+      "$oid": "70743736f9951287c5440a06"
+    },
+  "name": {
+    "login": "9003 AA-1",
+    "password": "9003"
+  },
+  "gps": {
+    "latitude": 3.01,
+    "longitude": 5.08
+  },
+  "routeID": [
+    "9 Ленинградская - Мясокомбинат",
+    "9 Мясокомбинат - Ленинградская"
+  ],
+  "route_work": "9 Ленинградская - Мясокомбинат",
+  "current_stop": "Богданчука",
+  "quanPassengers": 0,
+  "workAuto": true
+  },{
+    "_id": {
+      "$oid": "70743736f9951287c5440a07"
+    },
+  "name": {
+    "login": "6001 AA-1",
+    "password": "6001"
+  },
+  "gps": {
+    "latitude": 23.01,
+    "longitude": 25.08
+  },
+  "routeID": [
+    "6 Косичи - ВамРад",
+    "6 ВамРад - Косичи"
+  ],
+  "route_work": "6 Косичи - ВамРад",
+  "current_stop": "Парк Воинов-интернационалистов",
+  "quanPassengers": 0,
+  "workAuto": true
+  },{
+    "_id": {
+      "$oid": "70743736f9951287c5440a08"
+    },
+  "name": {
+    "login": "6002 AA-1",
+    "password": "6002"
+  },
+  "gps": {
+    "latitude": 23.01,
+    "longitude": 25.08
+  },
+  "routeID": [
+    "6 Косичи - ВамРад",
+    "6 ВамРад - Косичи"
+  ],
+  "route_work": "6 Косичи - ВамРад",
+  "current_stop": "Детский городок",
+  "quanPassengers": 0,
+  "workAuto": true
+  },{
+    "_id": {
+      "$oid": "70743736f9951287c5440a09"
+    },
+  "name": {
+    "login": "6003 AA-1",
+    "password": "6003"
+  },
+  "gps": {
+    "latitude": 93.01,
+    "longitude": 95.08
+  },
+  "routeID": [
+    "6 Косичи - ВамРад",
+    "6 ВамРад - Косичи"
+  ],
+  "route_work": "6 Косичи - ВамРад",
+  "current_stop": "Богданчука",
+  "quanPassengers": 0,
+  "workAuto": true
+}]
+  
+
