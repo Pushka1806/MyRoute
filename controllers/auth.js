@@ -125,7 +125,7 @@ module.exports.newPassword = async function (req, res){
 module.exports.getDriverRouterID = async function (req, res){       
     try{
         // нашли запись по логину, выделили массив с маршрутами
-        const candidate = (await driverUser.findOne({"name.login": req.query.login})).routeID       
+        const candidate = (await driverUser.findOne({"name.login": req.query.login}))      
         if (candidate === null){        // если записи нет, вернет null
             res.status(404).json({
                 message: "Запись не найдена"
