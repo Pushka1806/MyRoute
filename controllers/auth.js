@@ -124,6 +124,7 @@ module.exports.newPassword = async function (req, res){
 // функция для получения массива маршрута следования для машины
 module.exports.getDriverRouterID = async function (req, res){       
     try{
+        console.log(req.query.login)
         // нашли запись по логину, выделили массив с маршрутами
         const candidate = (await driverUser.findOne({"name.login": req.query.login}))      
         if (candidate === null){        // если записи нет, вернет null
