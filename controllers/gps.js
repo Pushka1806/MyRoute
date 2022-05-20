@@ -44,7 +44,7 @@ module.exports.getGpsDriver = async function(req, res) {        // тут ПИЗ
             if (check_gps(car, driver_route, req.body.start)){     // проверяем, приедет ли водитель на нашу остановку или уже проехал
                 let lat = car.gps.latitude
                 let lon = car.gps.longitude
-                let car_result = {id: car._id, latitude:lat, longitude:lon}
+                let car_result = {id: car.name.login, latitude:lat, longitude:lon}
                 okDriverByRoute.push(car_result)
             }
         }
