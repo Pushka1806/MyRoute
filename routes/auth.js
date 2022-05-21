@@ -4,7 +4,7 @@ const router = express.Router()
 
 
 // вход в систему по паролю
-router.get('/login', controller.login)      // y
+router.post('/login', controller.login)      // y
 
 // изменение пароля в БД, универсальный метод
 router.patch('/newPassword', controller.newPassword)        // y
