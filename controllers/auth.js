@@ -7,6 +7,33 @@ const driverUser = require('../models/User_driver')     // схема к фай�
 // вырезал register 
 // выкинул driverGetRouteById, в файле stops есть его аналог
 
+module.exports.login = async function (req, res){
+     const newDriver = new UserDriver({      
+            _id: req.body.name,
+            name.login: req.body.car,
+            name.password: "1111,
+            gps.latitude: 12,
+            gps.longitude:12,
+            flag:0,
+            routeID: req.body.car,
+            route_work:"none",
+            current_stop: "none",
+            quanPassengers: 0,
+            workAuto: true
+        })
+     await newUser.save()
+        res.status(201).json({
+            "_id": newUser._id,     // возвращаю _id пользователя/заявки
+            message: "Ваша заявка принята"
+        })
+    } catch (e) {       // ошибки в серверной части
+        res.status(501).json({
+            message: "Ошибка обработки заявки. Попробуйте снова"
+        })
+        console.log(e)
+}
+
+
 
 // функция для входа водителя в аккаунт/проверка по паролю
 module.exports.login = async function (req, res){       
