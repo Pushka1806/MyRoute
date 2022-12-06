@@ -2,6 +2,7 @@ const express = require('express')
 const controller = require('../controllers/auth')
 const router = express.Router()
 
+router.post('/addDriver', controller.addDriver)
 
 // вход в систему по паролю
 router.post('/login', controller.login)      // y
