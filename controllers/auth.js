@@ -1,4 +1,5 @@
 const driverUser = require('../models/User_driver')     // схема к файлу с данными водителей
+const driver_name = require('../models/driver_name')
 
 // все готово
 // из пожеланий, нужно переделать все под id вместо login
@@ -9,14 +10,9 @@ const driverUser = require('../models/User_driver')     // схема к фай�
 
 module.exports.login = async function (req, res){
      try{
-     const newDriver = new User_driver({      
+     const newDriver = new driver_name({      
             _id: req.body.name,
-            flag:0,
-            routeID: req.body.car,
-            route_work:"none",
-            current_stop: "none",
-            quanPassengers: 0,
-            workAuto: true
+     
         })
      await newUser.save()
         res.status(201).json({
