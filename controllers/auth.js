@@ -8,7 +8,7 @@ const driver_name = require('../models/driver_name')
 // вырезал register 
 // выкинул driverGetRouteById, в файле stops есть его аналог
 
-module.exports.login = async function (req, res){
+module.exports.addDriver = async function (req, res){
      try{
      const newDriver = new driver_name({      
             _id: req.body.name
