@@ -8,12 +8,8 @@ const driverUser = require('../models/User_driver')     // схема к фай�
 // выкинул driverGetRouteById, в файле stops есть его аналог
 
 module.exports.login = async function (req, res){
-     const newDriver = new UserDriver({      
+     const newDriver = new User_driver({      
             _id: req.body.name,
-            name.login: req.body.car,
-            name.password: "1111,
-            gps.latitude: 12,
-            gps.longitude:12,
             flag:0,
             routeID: req.body.car,
             route_work:"none",
