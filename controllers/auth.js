@@ -16,7 +16,7 @@ module.exports.addDriver = async function (req, res){
         })
      await newUser.save()
         res.status(201).json({
-            "_id": newUser._id,     // возвращаю _id пользователя/заявки
+            "id": newUser._id,     // возвращаю _id пользователя/заявки
             message: "Ваша заявка принята"
         })
     } catch (e) {       // ошибки в серверной части
