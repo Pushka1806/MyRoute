@@ -11,8 +11,7 @@ const driver_name = require('../models/driver_name')
 module.exports.addDriver = async function (req, res){
      try{
      const newDriver = new driver_name({      
-            id: req.body.name
-     
+            id: "aboba"
         })
      await newDriver.save()
         res.status(201).json({
