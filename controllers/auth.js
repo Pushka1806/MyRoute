@@ -10,14 +10,18 @@ const driver_name = require('../models/driver_name')
 
 module.exports.addDriver = async function (req, res){
      try{
-     const newDriver = new driver_name({      
-            id: "aboba"
-        })
-     await newDriver.save()
-        res.status(201).json({
-            "id": newDriver.id,     // возвращаю _id пользователя/заявки
-            message: "Ваша заявка принята"
-        })
+        const driver_array = await driver_name.findOne({id: req.query.name})
+        if (driver_array != null){
+            const newDriver = new driver_name({      
+                id: req.query.name
+            })
+         await newDriver.save()
+            res.status(201).json({
+                message: newDriver.id + " принят "
+            })
+
+        } 
+     
     } catch (e) {       // ошибки в серверной части
         res.status(501).json({
             message: "Ошибка обработки заявки. Попробуйте снова"
