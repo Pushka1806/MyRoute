@@ -20,8 +20,13 @@ module.exports.addDriver = async function (req, res){
                 message: newDriver.id + " принят "
             })
 
-        } 
-     
+        }
+        else{
+            res.status(202).json({
+                message: "+"
+            })
+        }
+
     } catch (e) {       // ошибки в серверной части
         res.status(501).json({
             message: "Ошибка обработки заявки. Попробуйте снова"
