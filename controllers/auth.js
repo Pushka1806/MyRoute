@@ -13,7 +13,7 @@ module.exports.addDriver = async function (req, res){
         const driver_array = await driver_name.findOne({id: req.body.name})
         if (driver_array == null){
             const newDriver = new driver_name({      
-                id: req.query.name
+                id: req.body.name
             })
             await newDriver.save()
             res.status(201).json({
