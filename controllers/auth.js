@@ -10,7 +10,7 @@ const driver_name = require('../models/driver_name')
 
 module.exports.addDriver = async function (req, res){
      try{
-        const driver_array = await driver_name.findOne({id: req.query.name})
+        const driver_array = await driver_name.findOne({id: req.body.name})
         if (driver_array == null){
             const newDriver = new driver_name({      
                 id: req.query.name
