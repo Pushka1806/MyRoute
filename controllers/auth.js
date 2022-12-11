@@ -11,14 +11,15 @@ const driver_name = require('../models/driver_name')
 module.exports.addDriver = async function (req, res){
      try{
         const driver_array = await driver_name.findOne({id: req.query.name})
-        if (driver_array != null){
+        if (driver_array == null){
             const newDriver = new driver_name({      
                 id: req.query.name
             })
-         await newDriver.save()
+            await newDriver.save()
             res.status(201).json({
                 message: newDriver.id + " принят "
             })
+         
 
         }
         else{
