@@ -44,7 +44,7 @@ module.exports.login = async function (req, res){
         // нахожу запись водителя по его логину (номеру маршрутки)
         const candidate = await driverUser.findOne({"name.login": req.body.login})
         if (candidate === null){        // если записи нет, вернет null
-            res.status(404).json({      // если не нашел водителя
+            res.status(201).json({      // если не нашел водителя
                 message: "Запись не найдена"
             })
         } else if (candidate.name.password == req.body.password) {       // проверка пароля
