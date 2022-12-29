@@ -248,8 +248,9 @@ module.exports.deletePassengers = async function (req,res){
 }
 
 module.exports.setWorkRoute = async function (req, res){
+     println("ok")
      try{
-          println("ok")
+          
           if (!(await driverUser.findOneAndUpdate({"name.login": req.query.login},  { $set: {"routeWork": req.query.routeWork}}))){
             res.status(201).json({      // если не нашел водителя
                 message: "Запись не найдена"
