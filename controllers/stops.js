@@ -64,7 +64,7 @@ module.exports.getStopsFromRoute = async function(req, res) {
         // нахождение нужного объекта, выделение объекта с остановками
         const driver = (await Driver_route.findOne({"_id": req.query._id}))
         if(driver != null){
-            console.log(driver.route)
+            allStops = driver.route
         }  
         else{
             console.log("null")
