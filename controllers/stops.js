@@ -64,10 +64,10 @@ module.exports.getStopsFromRoute = async function(req, res) {
         // нахождение нужного объекта, выделение объекта с остановками
         const driver = (await Driver_route.findOne({"_id": req.query._id}))
         if(driver != null){
-            print(driver.route)
+            console.log(driver.route)
         }  
         else{
-            print(null)
+            console.log("null")
         }   
         res.status(201).json(allStops)      // вывод массива с названиями остановок
     } catch (e) {
