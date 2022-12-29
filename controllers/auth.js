@@ -259,10 +259,11 @@ module.exports.setWorkRoute = async function (req, res){
             })
         }
      }catch(e){
+      console.log(e)
       res.status(501).json({
             message: "Ошибка сервера. Попробуйте снова"
         })
-        console.log(e)
+        
      }
      
 }
@@ -281,10 +282,11 @@ module.exports.setWorkAuto = async function (req, res){
             })
         }
     } catch(e) {
+        console.log(e)
         res.status(501).json({      // ошибки в серверной части
             message: "Ошибка сервера. Попробуйте снова"
         })
-        console.log(e)
+        
     }
 }
 
@@ -381,9 +383,10 @@ module.exports.setDriverFlag = async function (req, res){
             })
         }
     } catch(e) {
+         console.log(e)
         res.status(501).json({      // ошибки в серверной части
             message: "Ошибка сервера. Попробуйте снова"
         })
-        console.log(e)
+        
     }
 }
