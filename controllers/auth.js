@@ -247,6 +247,26 @@ module.exports.deletePassengers = async function (req,res){
     } 
 }
 
+module.exports.setWorkRoute = async function (req, res){
+     try{
+          if (!(await driverUser.findOneAndUpdate({"name.login": req.query.login}, { $set: {"routeWork": req.query.routeWork}}))){
+            res.status(201).json({      // если не нашел водителя
+                message: "Запись не найдена"
+            })
+        } else {
+            res.status(201).json({      // все ок, если ок
+                message: "Флаг изменен"
+            })
+        }
+     }catch(e){
+      res.status(501).json({
+            message: "Ошибка сервера. Попробуйте снова"
+        })
+        console.log(e)
+     }
+     
+}
+
 // функция для изменения флага в записи водителя
 module.exports.setWorkAuto = async function (req, res){      
     try{
