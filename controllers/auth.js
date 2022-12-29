@@ -248,7 +248,6 @@ module.exports.deletePassengers = async function (req,res){
 }
 
 module.exports.setWorkRoute = async function (req, res){
-     println("ok")
      try{
           
           if (!(await driverUser.findOneAndUpdate({"name.login": req.query.login},  { $set: {"routeWork": req.query.routeWork}}))){
