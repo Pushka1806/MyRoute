@@ -62,7 +62,13 @@ module.exports.getRouteNameByID = async function(req, res) {
 module.exports.getStopsFromRoute = async function(req, res) {        
     try{
         // нахождение нужного объекта, выделение объекта с остановками
-        const allStops = (await Driver_route.findOne({"_id": req.query._id})).route     
+        const driver = (await Driver_route.findOne({"_id": req.query._id}))
+        if(driver != null){
+            print(driver.route)
+        }  
+        else{
+            print(null)
+        }   
         res.status(201).json(allStops)      // вывод массива с названиями остановок
     } catch (e) {
         res.status(501).json({      // ошибки в серверной части
