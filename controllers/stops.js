@@ -59,7 +59,7 @@ module.exports.getRouteNameByID = async function(req, res) {
 }
 
 // функция для вывода массива всех остановок на маршруте с их координатами
-module.exports.getRouteNameWithGPSByID = async function(req, res) {        
+module.exports.getStopsFromRoute = async function(req, res) {        
     try{
         // нахождение нужного объекта, выделение объекта с остановками
         const allStops = (await Driver_route.findOne({"_id": req.query._id})).route     
