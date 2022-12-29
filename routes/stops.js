@@ -16,7 +16,7 @@ router.get('/getAllRoutes', controller.getAllRoutes)        // у
 router.get('/getRouteNameByID', controller.getRouteNameByID)        // у
 
 // вывод массива остановок по маршруту с их координатами
-router.get('/getRouteNameWithGPSByID', controller.getRouteNameWithGPSByID)        // у
+router.get('/getStopsFromRoute', controller.getStopsFromRoute)        // у
 
 // вывод массива с маршрутами подходящими по пути пассажира
 router.get('/getRoutesByStops', controller.getRoutesByStops)        // у
