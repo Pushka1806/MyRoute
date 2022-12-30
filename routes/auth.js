@@ -22,6 +22,9 @@ router.patch('/minusOne', controller.minusOne)      // y
 // обнуление количества пассажиров в записи водителя по логину
 router.patch('/deletePassengers', controller.deletePassengers)      // y
 
+//смена текущей остановки
+router.patch('/setCurrentStop', controller.setCurrentStop)
+
 // смена маршрута, на котором работает водитель
 router.patch('/setWorkRoute', controller.setWorkRoute)
 
