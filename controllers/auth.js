@@ -254,6 +254,11 @@ module.exports.setCurrentStop = async function (req, res){
                 message: "Запись не найдена"
             })
         }
+        else{
+             res.status(201).json({
+                  message: "Остановка изменена"
+             })
+        }
     }catch(e){
         res.status(501).json({      // ошибки в серверной части
             message: "Ошибка сервера. Попробуйте снова"
