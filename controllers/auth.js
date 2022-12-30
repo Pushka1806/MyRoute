@@ -247,6 +247,22 @@ module.exports.deletePassengers = async function (req,res){
     } 
 }
 
+module.exports.setCurrentStop = async function (req, res){
+    try{
+        if (!(await driverUser.findOneAndUpdate({"name.login": req.query.login}, { $set: {"current_stop": req.query.currentStop}}))){
+            res.status(404).json({      // если не нашел водителя
+                message: "Запись не найдена"
+            })
+        }
+    }catch(e){
+        res.status(501).json({      // ошибки в серверной части
+            message: "Ошибка сервера. Попробуйте снова"
+        })
+        console.log(e)
+
+    }  
+}
+
 module.exports.setWorkRoute = async function (req, res){
      try{
           
