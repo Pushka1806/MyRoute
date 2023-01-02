@@ -1,4 +1,4 @@
 module.exports = {
-    mongoURI: 'mongodb://194.61.53.53:27017/diplom',
+    mongoURI: 'mongodb://127.0.0.1:27017/diplom',
     jwt: 'dev-jwt'
 }
