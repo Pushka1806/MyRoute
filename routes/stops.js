@@ -10,7 +10,7 @@ router.get('/getAllExistingStops', controller.getAllExistingStops)      // у
 router.get('/getAvailableStopsByName', controller.getAvailableStopsByName)      // у
 
 //вывод массива остановок, в которые можно добратьcя по текущему маршруту из начальной остановки
-router.get('/getAvailableStopsByRouteAndName', controller.getAvailableStopsByRouteAndName)
+router.get('/getStopsByRouteAndName', controller.getStopsByRouteAndName)
 
 // вывод всех маршрутов в форме массива
 router.get('/getAllRoutes', controller.getAllRoutes)        // у
