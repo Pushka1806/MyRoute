@@ -4,7 +4,7 @@ const {Schema} = require('mongoose')
 const Driver_routes_Schema = new Schema({
         _id : String,
         route: Array,
-        existAuto: Boolean,
+        existAuto: Boolean
     }
 )
 
