@@ -31,7 +31,7 @@ module.exports.getAvailableStopsByName = async function (req, res){
 }
 
 // получение доступных остановок по маршруту из начальной остановки
-module.exports.getAvailableStopsByRouteAndName = async function (req, res) {
+module.exports.getStopsByRouteAndName = async function (req, res) {
     try {
         const route = (await Driver_route.findOne({ "_id": req.query.route }))
         let startPoint = false
