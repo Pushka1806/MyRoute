@@ -17,7 +17,7 @@ module.exports.getAllExistingStops = async function (req, res){
 }
 
 // функция для вывода массива названий остановок, в которые возможно добрать из текущей
-module.exports.getAvailableStopsByName = async function (req, res){    
+module.exports.getStopsByStart = async function (req, res){    
     try{
         // нахождение нужного объекта, создание массива по полю availableStops
         const allStops = (await Stops.findOne({"_id": req.query._id})).availableStops      
@@ -31,21 +31,18 @@ module.exports.getAvailableStopsByName = async function (req, res){
 }
 
 // получение доступных остановок по маршруту из начальной остановки
-module.exports.getStopsByRouteAndName = async function (req, res) {
+module.exports.getStopsByRouteAndStart = async function (req, res) {
     try {
-        const route = (await Driver_route.findOne({ "_id": req.query.route }))
+        const allStops = await routes.findOne({ "_id": req.query.route })
         let startPoint = false
         let availableStops = new Array()
-        for (let stop of route.route) {
-            while (startPoint != true) {
-                if (stop === req.query.start) {
-                    startPoint = true
-                }
-                else {
-                    continue
-                }
+        for (let stop of allStops.route) {
+            if (stop.name === req.query.start) {
+                startPoint = true
             }
-            availableStops.push(stop)
+            if (startPoint) {
+                availableStops.push(stop.name)
+            }
         }
         res.status(201).json(availableStops)
     } catch (e) {
@@ -73,7 +70,7 @@ module.exports.getAllRoutes = async function(req, res){
 }
 
 // функция для вывода массива всех остановок на маршруте
-module.exports.getRouteNameByID = async function(req, res) {        
+module.exports.getStopsFromRoute = async function(req, res) {        
     try{
         // нахождение нужного объекта, выделение объекта с остановками, выделение поля name с занесением в массив
         const allStops = (await Driver_route.findOne({"_id": req.query._id})).route.map(names => { return names.name })      
@@ -87,7 +84,7 @@ module.exports.getRouteNameByID = async function(req, res) {
 }
 
 // функция для вывода массива всех остановок на маршруте с их координатами
-module.exports.getStopsFromRoute = async function(req, res) {        
+module.exports.getGPSStopsFromRoute = async function(req, res) {        
     try{
         // нахождение нужного объекта, выделение объекта с остановками
         const driver = (await Driver_route.findOne({"_id": req.query._id}))
