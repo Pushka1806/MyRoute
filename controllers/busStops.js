@@ -5,15 +5,12 @@ module.exports.getStopsByRouteStart =  async function (req, res) {
     let startPoint = false
     let availableStops = new Array()
     for (let stop of allStops.route) {
-        while (startPoint != true) {
-            if (stop === req.query.start) {
-                startPoint = true
-            }
-            else {
-                continue
-            }
+        if (stop.name === req.query.start) {
+            startPoint = true
         }
-        availableStops.push(stop)
+        if (startPoint) {
+            availableStops.push(stop)
+        }
     }
     res.status(201).json(availableStops)
     
