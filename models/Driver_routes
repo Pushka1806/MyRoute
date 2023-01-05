@@ -6,6 +6,6 @@ const Driver_routes_Schema = new Schema({
         existAuto: Boolean,
         route: Array,
     }
-)
+);
 
 module.exports = mongoose.model('driver_routes', Driver_routes_Schema)
