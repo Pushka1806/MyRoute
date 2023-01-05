@@ -3,10 +3,11 @@ const route_model = require('../models/Driver_routes')
 
 
 module.exports.getAllById = function (req, res){
-   res.status(201).json("OK")
+   
 }
 
-module.exports.getStopsByRouteStart = function (req, res){
+module.exports.getStopsByRouteStart = function (req, res) {
+    console.log("aboba")
     try {
         //const route = (await route_model.findOne({ "_id": req.query.route }))
         let startPoint = false
