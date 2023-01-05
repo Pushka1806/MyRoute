@@ -8,4 +8,4 @@ const Driver_routes_Schema = new Schema({
     }
 );
 
-module.exports = mongoose.model('driver_routes', Driver_routes_Schema)
+module.exports = mongoose.model('driver_routes', Driver_routes_Schema);
