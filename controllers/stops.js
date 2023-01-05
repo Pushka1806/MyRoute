@@ -1,5 +1,5 @@
 const Stops = require('../models/Stops')        // схема к файлу с остановками начала и возможным концом пути
-const Driver_route = require('../models/Driver_routes')     // схема к файлу с маршрутами и остановками на них (+координаты GPS)
+const routes = require('../models/Driver_routes')     // схема к файлу с маршрутами и остановками на них (+координаты GPS)
 
 
 // функция для вывода названий всех существующих остановок
@@ -59,7 +59,7 @@ module.exports.getStopsByRouteAndStart = async function (req, res) {
 module.exports.getAllRoutes = async function(req, res){        
     try{
         // перебор массива объектов, создание массива по полям _id
-        const allStops = (await Driver_route.find(/*{existAuto: true}*/)).map((names) => { return names._id })      
+        const allStops = (await routes.find(/*{existAuto: true}*/)).map((names) => { return names._id })      
         res.status(201).json(allStops)      // вывод массива с названиями остановок
     } catch (e) {
         res.status(501).json({      // ошибки в серверной части
@@ -73,7 +73,7 @@ module.exports.getAllRoutes = async function(req, res){
 module.exports.getStopsFromRoute = async function(req, res) {        
     try{
         // нахождение нужного объекта, выделение объекта с остановками, выделение поля name с занесением в массив
-        const allStops = (await Driver_route.findOne({"_id": req.query._id})).route.map(names => { return names.name })      
+        const allStops = (await routes.findOne({"_id": req.query._id})).route.map(names => { return names.name })      
         res.status(201).json(allStops)      // вывод массива с названиями остановок
     } catch (e) {
         res.status(501).json({      // ошибки в серверной части
@@ -87,7 +87,7 @@ module.exports.getStopsFromRoute = async function(req, res) {
 module.exports.getGPSStopsFromRoute = async function(req, res) {        
     try{
         // нахождение нужного объекта, выделение объекта с остановками
-        const driver = (await Driver_route.findOne({"_id": req.query._id}))
+        const driver = (await routes.findOne({"_id": req.query._id}))
         if(driver != null){
             allStops = driver.route
         }  
@@ -107,7 +107,7 @@ module.exports.getGPSStopsFromRoute = async function(req, res) {
 module.exports.getRoutesByStops = async function(req, res) {
     try{
         // поиск в БД по двум элементам (остановкам), получим все маршруты, корорые имеют эти остановки
-        const okDrivers = await Driver_route.find({"route.name": {$all: [req.query.start, req.query.stop]}})
+        const okDrivers = await routes.find({"route.name": {$all: [req.query.start, req.query.stop]}})
         // создаем массив, в котором будем хранить подходящие маршруты
         let sortedDrivers = new Array()
         // фильтр для проверки подходящих маршрутов
@@ -166,7 +166,7 @@ module.exports.getGPSAllStops = async function(req, res) {
             // беру массив с данными остановками
             // отбираю элемент массива по названию остановки
             // остается массив с одним объектом, в котором название и координаты моей остановки
-            let nameStops = await (await Driver_route.findOne({"route.name": stop})).route.filter((valueName) => {
+            let nameStops = await (await routes.findOne({"route.name": stop})).route.filter((valueName) => {
                 return valueName.name == stop
             })
             // добавляю в массив объект (изымаю объект из массива и перекладываю в общий)
