@@ -7,6 +7,7 @@ module.exports.getAllById = function (req, res){
 }
 
 module.exports.getStopsByRouteStart = function (req, res) {
+    res.status(201).json("aboba")
     console.log("aboba")
     try {
         //const route = (await route_model.findOne({ "_id": req.query.route }))
