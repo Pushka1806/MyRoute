@@ -1,4 +1,6 @@
+const routes = require('../models/Driver_routes')
 
 module.exports.getStopsByRouteStart = function (req, res) {
-    res.status(201).json("aboba")
+    const availableStops = await routes.findOne({ "_id": req.query.route })
+    res.status(201).json(availableStops)
 }
