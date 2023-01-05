@@ -1,4 +1,4 @@
-const Driver_route = require('../models/Driver_routes')
+const route_model = require('../models/Driver_routes')
 
 
 
@@ -7,8 +7,8 @@ module.exports.getAllById = function (req, res){
 }
 
 module.exports.getStopsByRouteStart = function (req, res){
-   try {
-        const route = await Driver_route.findOne({ "_id": req.query.route })
+    try {
+        //const route = (await route_model.findOne({ "_id": req.query.route }))
         let startPoint = false
         let availableStops = new Array()
         for (let stop of route.route) {
